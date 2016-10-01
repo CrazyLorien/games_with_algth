@@ -64,17 +64,62 @@ def make_heap(queue, array_with_items)
 end
 
 
-pq = PriorityQueue.new
-
-pq_init pq;
-
-items_scroll = [2,3,7,15,8,4,9, 23,11,1]
-
-make_heap pq, items_scroll
-
-pq.q.each do |p|
-  puts p.to_s
+def extract_min(q)
+  min = -1
+  if(q.n <= 0)
+    puts "priority queu is empty"
+  else
+    min = q.q[1]
+    q.q[1] = q.q[q.n]
+    q.n = q.n - 1
+    bubble_down(q,1)
+  end
+  puts "min #{min}"
+  min
 end
+
+def bubble_down(q, p)
+  c = pq_young_child(p)
+  min_index = p
+
+  if(c <= q.n)
+    if(q.q[min_index] > q.q[c])
+      min_index = c
+    end
+  end
+      
+  if(c+1 <= q.n)
+    if(q.q[min_index] > q.q[c+1])
+      min_index = c+1
+    end
+  end
+
+  if(min_index != p)
+        pq_swap(q,p, min_index)
+        bubble_down(q,min_index)
+  end
+end
+
+def heapsort()
+  pq = PriorityQueue.new
+
+  pq_init pq;
+
+  items_scroll = [2,3,7,15,8,4,9, 23,11,1]
+
+  make_heap pq, items_scroll
+
+  pq.q.each_with_index do |p,index|
+    items_scroll[index] = extract_min(pq)
+  end
+
+  items_scroll.each {|item| puts item }
+end
+
+heapsort()
+
+
+
 
 
   
