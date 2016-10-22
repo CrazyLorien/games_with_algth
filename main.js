@@ -20,7 +20,7 @@ MergeProto.printResults = function () {
 MergeProto.sort = function (list, lo, hi) {
     if(hi - lo <= 1)
 	return list;
-    var middle = (lo+hi)/2;
+    var middle = Math.floor((lo+hi)/2);
     this.sort(list, lo, middle)
     this.sort(list, middle + 1, hi) 
     this.merge(list, lo, middle, hi)
